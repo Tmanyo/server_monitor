@@ -306,7 +306,7 @@ refined_minor = priority_low()
 
 function main_screen(ptype, add_on)
 	formspec = "size[12,10]" ..
-	"background[0,0;12,10;welcome_bg.png;true]" ..
+	"background[0,0;12,10;welcome_bg_beta.png;true]" ..
 	"label[.5,-.25;Potential High Priority:]" ..
 	"textlist[.5,.25;4,5;high_priority;" .. priority_high() .. ";;false]" ..
 	"label[.5,5.25;Potential Low Priority:]" ..
@@ -397,7 +397,7 @@ end
 minetest.register_chatcommand("poi", {
 	description = "View players of interest.",
 	func = function(name, param)
-		if minetest.check_player_privs(name, {fly=true}) then
+		if minetest.check_player_privs(name, {privs=true}) then
 			minetest.show_formspec(name, "server_monitor:welcome",
 				"size[12,10]" ..
 				"background[0,0;12,10;welcome_bg.png;true]" ..
@@ -529,7 +529,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local mak = minetest.serialize(bad_nodes.MAK):gsub("return", ""):gsub("\"", ""):gsub("{", ""):gsub("}", ""):gsub(" ", "")
 			minetest.show_formspec(player:get_player_name(), "server_monitor:options_screen",
 				"size[12,10]" ..
-				"background[0,0;12,10;welcome_bg.png;true]" ..
+				"background[0,0;12,10;welcome_bg_beta.png;true]" ..
 				"label[0,0;Low Priority Requirements:]" ..
 				"field[.5,1;2,1;low_lava;Lave Source:;" .. minetest.formspec_escape(bad_nodes.low_lava) .. "]" ..
 				"field[.5,2;2,1;low_water;Water Source:;" .. minetest.formspec_escape(bad_nodes.low_water) .. "]" ..
@@ -712,7 +712,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			else
 				minetest.show_formspec(player:get_player_name(), "server_monitor:moderator",
 					"size[5,5]" ..
-					"background[0,0;5,5;welcome_bg.png;true]" ..
+					"background[0,0;5,5;welcome_bg_beta.png;true]" ..
 					"pwdfield[1,2;3,1;mod_pass;Moderator Access Keyword:;]" ..
 					"button[2,3.5;2,1;pass_check;Get Access]" ..
 					"label[1,3;Incorrect Moderator Access Keyword (MAK)]")
