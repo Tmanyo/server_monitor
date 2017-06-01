@@ -394,7 +394,7 @@ function main_screen(ptype, add_on)
 	minetest.show_formspec(ptype, "server_monitor:main_screen", formspec)
 end
 
-minetest.register_chatcommand("poi", {
+minetest.register_chatcommand("sm", {
 	description = "View players of interest.",
 	func = function(name, param)
 		if minetest.check_player_privs(name, {privs=true}) then
@@ -503,22 +503,24 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 		if fields.overview then
 			if a == 1 then
-				if not b == 1 then
+				if b == 0 then
 					local add_on = 2
+					main_screen(ptype, add_on)
 				else
 					local add_on = 1
+					main_screen(ptype, add_on)
 				end
-				main_screen(ptype, add_on)
 			elseif a == 2 then
 				local add_on = 3
 				main_screen(ptype, add_on)
 			elseif a == 3 then
-				if not b == 1 then
+				if b == 0 then
 					local add_on = 5
+					main_screen(ptype, add_on)
 				else
 					local add_on = 4
+					main_screen(ptype, add_on)
 				end
-				main_screen(ptype, add_on)
 			else
 				local add_on = 10
 				main_screen(ptype, add_on)
