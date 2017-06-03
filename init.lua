@@ -574,12 +574,21 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				end
 			end
 			if exempt == 1 then
+				local exempt_players = minetest.serialize(bad_nodes.exempt_players):gsub("return ", ""):gsub("{", ""):gsub("}", ""):gsub("\"", "")
 				if a == 1 then
-					bad_nodes.exempt_players = minetest.serialize(bad_nodes.exempt_players) .. major[d]
+					if exempt_players == "" then
+						bad_nodes.exempt_players = exempt_players .. major[d]
+					else
+						bad_nodes.exempt_players = exempt_players .. ", " .. major[d]
+					end
 					major = {}
 					priority_high()
 				elseif a == 3 then
-					bad_nodes.exempt_players = minetest.serialize(bad_nodes.exempt_players) .. minor[d]
+					if exempt_players == "" then
+						bad_nodes.exempt_players = exempt_players .. minor[d]
+					else
+						bad_nodes.exempt_players = exempt_players .. ", " .. minor[d]
+					end
 					minor = {}
 					priority_low()
 				end
