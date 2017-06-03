@@ -330,7 +330,7 @@ function main_screen(ptype, add_on)
 		bad_nodes.water_placed[major[d]] .. "]" .. "label[6.25,2.25;Corium Source Placed: " ..
 		bad_nodes.corium_placed[major[d]] .. "]" .. "label[6.25,2.75;Chernobylite Placed: " ..
 		bad_nodes.chernobylite_placed[major[d]] .. "]" .. "label[6.25,3.25;Bad Language: " ..
-		#bad_nodes.spoken_bad[major[d]] .. "]"
+		b_words .. "]"
 		if #bad_nodes.spoken_bad[major[d]] >= 1 then
 			total = #bad_nodes.spoken_bad[major[d]]
 			words = minetest.serialize(bad_nodes.spoken_bad[major[d]]):gsub("return ", ""):gsub("{", ""):gsub("}", ""):gsub("\"", "")
