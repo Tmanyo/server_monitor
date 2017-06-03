@@ -32,6 +32,7 @@ local add_on = {}
 local formspec = {}
 local total = {}
 local words = {}
+local b_words = {}
 
 local a = {}
 local b = {}
@@ -319,6 +320,11 @@ function main_screen(ptype, add_on)
 		formspec = formspec .. "label[6,.75;There are no high priority players at this time.]"
 	end
 	if add_on == 2 then
+		if #bad_nodes.spoken_bad[major[d]] == nil then
+			b_words = 0
+		else
+			b_words = #bad_nodes.spoken_bad[major[d]]
+		end
 		formspec = formspec .. "label[8,.75;" .. major[d] .. "]" .. "label[6.25,1.25;Lava Source Placed: " ..
 		bad_nodes.lava_placed[major[d]] .. "]" .. "label[6.25,1.75;Water Source Placed: " ..
 		bad_nodes.water_placed[major[d]] .. "]" .. "label[6.25,2.25;Corium Source Placed: " ..
@@ -344,12 +350,17 @@ function main_screen(ptype, add_on)
 		formspec = formspec .. "label[6,.75;There are no low priority players at this time.]"
 	end
 	if add_on == 5 then
+		if #bad_nodes.spoken_bad[minor[d]] == nil then
+			b_words = 0
+		else
+			b_words = #bad_nodes.spoken_bad[minor[d]]
+		end
 		formspec = formspec .. "label[8,.75;" .. minor[d] .. "]" .. "label[6.25,1.25;Lava Source Placed: " ..
 		bad_nodes.lava_placed[minor[d]] .. "]" .. "label[6.25,1.75;Water Source Placed: " ..
 		bad_nodes.water_placed[minor[d]] .. "]" .. "label[6.25,2.25;Corium Source Placed: " ..
 		bad_nodes.corium_placed[minor[d]] .. "]" .. "label[6.25,2.75;Chernobylite Placed: " ..
 		bad_nodes.chernobylite_placed[minor[d]] .. "]" .. "label[6.25,3.25;Bad Language: " ..
-		#bad_nodes.spoken_bad[minor[d]] .. "]"
+		b_words .. "]"
 		if #bad_nodes.spoken_bad[minor[d]] >= 1 then
 			total = #bad_nodes.spoken_bad[minor[d]]
 			words = minetest.serialize(bad_nodes.spoken_bad[minor[d]]):gsub("return ", ""):gsub("{", ""):gsub("}", ""):gsub("\"", "")
@@ -527,7 +538,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			end
 		end
 		if fields.options then
-			local exempt_p = minetest.serialize(bad_nodes.exempt_players):gsub("return", ""):gsub("\"", ""):gsub("{", ""):gsub("}", "")
+			local exempt_p = minetest.serialize(bad_nodes.exempt_players):gsub("return", ""):gsub("\"", ""):gsub("{", ""):gsub("}", ""):gsub("  ", "")
 			local mak = minetest.serialize(bad_nodes.MAK):gsub("return", ""):gsub("\"", ""):gsub("{", ""):gsub("}", ""):gsub(" ", "")
 			minetest.show_formspec(player:get_player_name(), "server_monitor:options_screen",
 				"size[12,10]" ..
