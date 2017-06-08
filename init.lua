@@ -165,9 +165,7 @@ minetest.register_on_chat_message(function(name, message)
 		if string.len(v) == 1 then
 			string_words = minetest.deserialize(minetest.serialize(string_words):gsub(v .. ",", ""))
 		else
-			print(minetest.serialize(string_words))
 			local keyword = v:gsub("\"", "")
-			print(v)
 			if minetest.serialize(bad_nodes.bad_language):match(" " .. keyword .. ",") or
 			minetest.serialize(bad_nodes.bad_language):match(keyword .. ",") or
 			minetest.serialize(bad_nodes.bad_language):match(", " .. keyword) then
